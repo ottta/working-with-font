@@ -46,7 +46,7 @@ clean:
 	find . -name "*.pyc" | xargs rm delete
 
 update-project-template:
-	npx update-template https://github.com/googlefonts/googlefonts-project-template/
+	npx update-template https://github.com/ottta/working-with-font/
 
 update:
 	pip install --upgrade $(dependency); pip freeze > requirements.txt
