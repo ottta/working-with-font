@@ -21,7 +21,8 @@ def repo_url(owner, name):
 
 
 def web_url(owner, name):
-    return f"https://{owner}.github.io/{name}"
+    # return f"https://{owner}.github.io/{name}"
+    return f"https://github.com/{owner}/{name}"
 
 
 def raw_url(owner, name):
@@ -49,7 +50,8 @@ try:
 except Exception as e:
     lose("Could not use git to find my own repository URL", e)
 
-m = re.match(r"(?:https://github.com/|git@github.com:)(.*)/(.*)/?", str(my_repo_url))
+m = re.match(r"(?:https://github.com/|git@github.com:)(.*)/(.*)/?",
+             str(my_repo_url))
 if not m:
     lose(
         f"My git repository URL ({my_repo_url}) didn't look what I expected - are you hosting this on github?"
@@ -76,10 +78,12 @@ if owner == BASE_OWNER and reponame == BASE_REPONAME:
 readme = open("README.md").read()
 
 print(
-    "Fixing URLs:", web_url(BASE_OWNER, BASE_REPONAME), "->", web_url(owner, reponame)
+    "Fixing URLs:", web_url(
+        BASE_OWNER, BASE_REPONAME), "->", web_url(owner, reponame)
 )
 
-readme = readme.replace(web_url(BASE_OWNER, BASE_REPONAME), web_url(owner, reponame))
+readme = readme.replace(
+    web_url(BASE_OWNER, BASE_REPONAME), web_url(owner, reponame))
 # In the badges, the URLs to raw.githubusercontent.com are URL-encoded as they
 # are passed to shields.io.
 print(
@@ -109,12 +113,12 @@ with open("README.md", "w") as fh:
 
 # Fix the OFL
 
-ofl = open("OFL.txt").read()
-ofl = ofl.replace(web_url(BASE_OWNER, BASE_REPONAME), web_url(owner, reponame))
-ofl = ofl.replace("My Font", reponame.title())
-ofl = ofl.replace("20**", str(datetime.date.today().year))
-with open("OFL.txt", "w") as fh:
-    fh.write(ofl)
+# ofl = open("OFL.txt").read()
+# ofl = ofl.replace(web_url(BASE_OWNER, BASE_REPONAME), web_url(owner, reponame))
+# ofl = ofl.replace("My Font", reponame.title())
+# ofl = ofl.replace("20**", str(datetime.date.today().year))
+# with open("OFL.txt", "w") as fh:
+#     fh.write(ofl)
 
 # Pin the dependencies
 print("Pinning dependencies")
